@@ -1,0 +1,28 @@
+.wrapper {
+    width: 25%;
+    background-color:  #690909CC;
+    display:flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px #530707 ;
+    padding: 30px;
+    
+}
+.button{
+    align-self: center;
+    margin: 0 auto;
+    background-color: #470707cc;
+    border-radius: 15px;
+    height: 30px;
+    width: 40%;
+    box-shadow: 0px 0px 30px #530707 ;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.playlistName {
+    background-color: #69090900;
+    font-size: 18px;
+    border: 0;
+    font-weight: bold;
+    border-bottom: 2px solid #360505;
+}

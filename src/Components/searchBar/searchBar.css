@@ -1,0 +1,23 @@
+.searchBar {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    gap: 20%;
+    margin: 50px auto;
+}
+.searchBar__input {
+    margin-bottom: 40px;
+    height: 30px;
+    text-align: center;
+}
+.searchBar__button {
+    width: 40%;
+    height: 30px;
+    font-weight: bold;
+    align-self: center;
+    background-color: #690909CC;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0px 0px 30px #530707;
+    
+}

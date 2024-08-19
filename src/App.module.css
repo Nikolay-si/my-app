@@ -1,0 +1,8 @@
+.lay {
+  display: flex;
+  margin: 0, auto;
+  justify-content: center;
+  gap: 5%;
+  min-height: 400px;
+}
+

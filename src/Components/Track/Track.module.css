@@ -1,0 +1,17 @@
+.info {
+    display: flex;
+    flex-direction: column;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.button {
+    color: #000000 ;
+    font-weight: bold;
+    font-size: 18px;
+}
+.albom {
+    display: flex;
+}
