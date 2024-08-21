@@ -1,8 +1,27 @@
 .lay {
   display: flex;
   margin: 0, auto;
-  justify-content: center;
-  gap: 5%;
-  min-height: 400px;
+  gap: 20px;
+  min-height: 800px;
+  flex-direction: column;
+}
+.header {
+  width:100%;
+  background-color:  #690909CC;
+  text-align: center;
+}
+.headerImage {
+  width: 40px;
+  height: auto;
+}
+.boom {
+  color: rgb(252, 248, 20);
 }
 
+@media screen and (min-width:720px){
+  .lay {
+    flex-direction: row;
+    min-height: 600px;
+  }
+  
+}

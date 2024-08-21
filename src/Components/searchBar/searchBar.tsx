@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import "./searchBar.css"
+import React from "react";
+import styles from "./searchBar.module.css"
 
 interface SearchBarProps {
     value:string,
@@ -13,17 +13,17 @@ const SearchBar:React.FC<SearchBarProps> =({value, onChange, onSearch}) => {
     return (
         <div
         
-        className="searchBar"
+        className={styles.searchBar}
         >
             <input 
-            className="searchBar__input"
+            className={styles.searchBar__input}
             value={value}
             type="text"
             onChange={(e) => onChange(e.target.value)}
             placeholder="Enter a song Title"
             />
             <button
-            className="searchBar__button" 
+            className={styles.searchBar__button} 
             type="button"
             onClick={onSearch}>
                 SEARCH

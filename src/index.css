@@ -10,9 +10,7 @@ body {
   background-repeat: no-repeat;
   
 }
-#root {
-  min-height: 1240px;
-}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
