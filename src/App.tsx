@@ -4,7 +4,7 @@ import SearchBar from './Components/searchBar/searchBar';
 import TrackList from './Components/TtrackList/TrackList';
 import SearchResult from './Components/SearchResults/SearchResult';
 import PlayList from './Components/PlayList/PlayList';
-
+import Loader from './Components/loader/Loader';
 
 import { spotifyAuth } from './Auth';
 
@@ -45,6 +45,7 @@ function App() {
   const buttomSynbDel = "x";
   const buttomSynbAdd = "+";
   const playListTracksId = userPlayList.map(track => track.id);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
 
     const token = spotifyAuth.getAccessToken();
@@ -127,6 +128,7 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
+      setIsLoading(true);
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
@@ -167,6 +169,8 @@ function App() {
       }
     } catch (error) {
       console.error(`Error`, error)
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -182,11 +186,10 @@ function App() {
               buttonSymb={buttomSynbAdd} />
           </SearchResult>
           <PlayList name={playListName} onChange={handleNameChange} onClick={handlePost}>
-            <TrackList songsList={userPlayList}
+           {!isLoading ? <TrackList songsList={userPlayList}
               handleClick={handleDelet}
-              buttonSymb={buttomSynbDel} />
+              buttonSymb={buttomSynbDel} /> : <Loader/> }
           </PlayList>
-
         </div>
 
       </div>

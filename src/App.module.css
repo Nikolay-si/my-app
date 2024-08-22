@@ -15,7 +15,12 @@
   height: auto;
 }
 .boom {
-  color: rgb(252, 248, 20);
+  color: rgb(252, 20, 20);
+  text-shadow: 
+  -2px -2px 0 #000000,  
+  2px -2px 0 #000000,
+  -2px 2px 0 #000000,
+  2px 2px 0 #000000;
 }
 
 @media screen and (min-width:720px){

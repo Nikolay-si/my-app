@@ -1,6 +1,6 @@
-const clientId: string = "05c3ea21976e455d9ff8c17b2e77c6c1";
-const redirectUri: string = "http://localhost:3000/callback";
-const scopes: string = "playlist-modify-public";
+const clientId = "05c3ea21976e455d9ff8c17b2e77c6c1";
+const redirectUri = "http://localhost:3000/callback";
+const scopes = "playlist-modify-public";
 
 
 interface TokenData {
@@ -28,14 +28,15 @@ export const spotifyAuth = {
     },
 
     extractTokenFromUrl(): TokenData {
-        const hash: string = window.location.hash.substring(1);
-        const params: URLSearchParams = new URLSearchParams(hash);
-        const accessToken: string | null = params.get("access_token");
-        const expiresIn: string | null = params.get("expires_in");
+        const hash = window.location.hash.substring(1);
+        console.log(hash, "hash");
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get("access_token");
+        const expiresIn = params.get("expires_in");
 
         if (accessToken && expiresIn) {
-            const expiresInNumber: number = parseInt(expiresIn, 10); // Указан radix 10 для явного преобразования
-            const tokenExpiresAt: number = Date.now() + expiresInNumber * 1000;
+            const expiresInNumber = parseInt(expiresIn, 10); // Указан radix 10 для явного преобразования
+            const tokenExpiresAt = Date.now() + expiresInNumber * 1000;
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("tokenExpiresAt", tokenExpiresAt.toString());
             window.history.pushState("", document.title, window.location.pathname);
