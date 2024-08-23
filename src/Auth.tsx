@@ -1,8 +1,6 @@
 const clientId = "05c3ea21976e455d9ff8c17b2e77c6c1";
 const redirectUri =
-  process.env.NODE_ENV === "production"
-    ? "https://your-netlify-site.netlify.app/callback"
-    : "http://localhost:3000/callback";
+  process.env.REACT_APP_REDIRECT_URI || "http://localhost:3000/callback";
 const scopes = "playlist-modify-public";
 
 interface TokenData {
