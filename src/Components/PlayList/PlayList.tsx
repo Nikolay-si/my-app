@@ -5,15 +5,15 @@ import styles from "./PlayList.module.css";
 interface PlayListProps {
   children: React.ReactElement;
   name: string;
-  onChange: (value: string) => void;
-  onClick: () => void;
+  handleNameChange: (value: string) => void;
+  handlePost: () => void;
 }
 
 const PlayList: React.FC<PlayListProps> = ({
   children,
   name,
-  onChange,
-  onClick,
+  handleNameChange: onChange,
+  handlePost: onClick,
 }) => {
   return (
     <div className={styles.wrapper}>
