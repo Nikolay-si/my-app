@@ -1,17 +1,13 @@
 import React from "react";
 import styles from "./searchBar.module.css";
 
-interface SearchBarProps {
+interface Props {
   value: string;
-  handleTextChange: (value: string) => void;
-  handleSearch: () => void;
+  onChange: (value: string) => void;
+  onClick: () => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  value,
-  handleTextChange: onChange,
-  handleSearch: onSearch,
-}) => {
+export const SearchBar = ({ value, onChange, onClick }: Props) => {
   return (
     <div className={styles.searchBar}>
       <input
@@ -24,12 +20,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
       <button
         className={styles.searchBar__button}
         type="button"
-        onClick={onSearch}
+        onClick={onClick}
       >
         SEARCH
       </button>
     </div>
   );
 };
-
-export default SearchBar;

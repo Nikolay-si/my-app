@@ -1,20 +1,15 @@
 import React from "react";
-import { inflateRaw } from "zlib";
+
 import styles from "./PlayList.module.css";
 
-interface PlayListProps {
+interface Props {
   children: React.ReactElement;
   name: string;
-  handleNameChange: (value: string) => void;
-  handlePost: () => void;
+  onChange: (value: string) => void;
+  onClick: () => void;
 }
 
-const PlayList: React.FC<PlayListProps> = ({
-  children,
-  name,
-  handleNameChange: onChange,
-  handlePost: onClick,
-}) => {
+export const PlayList = ({ children, name, onChange, onClick }: Props) => {
   return (
     <div className={styles.wrapper}>
       <input
@@ -30,5 +25,3 @@ const PlayList: React.FC<PlayListProps> = ({
     </div>
   );
 };
-
-export default PlayList;

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import React from "react";
 import styles from "./Track.module.css";
-import playIcon from "../../img/play_arrow_32dp_FFFFFF_FILL0_wght500_GRAD200_opsz48.svg";
-import stopIcon from "../../img/pause_32dp_FFFFFF_FILL0_wght500_GRAD200_opsz48.svg";
-interface TrackProps {
+import playIcon from "../../img/play-icon.svg";
+import stopIcon from "../../img/stop-icon.svg";
+interface Props {
   title: string;
   artist: string[];
   id: string;
@@ -14,7 +14,7 @@ interface TrackProps {
   preview_url: string;
 }
 
-const Track: React.FC<TrackProps> = ({
+export const Track = ({
   title,
   artist,
   id,
@@ -23,33 +23,34 @@ const Track: React.FC<TrackProps> = ({
   album,
   image,
   preview_url,
-}) => {
+}: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const handleImageClick = () => {
-    if (audioRef.current && preview_url) {
-      if (audioRef.current.paused) {
-        audioRef.current.play();
-        setIsPlaying(true);
-      } else {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      }
-    } else {
+  const handleClick = () => {
+    if (!audioRef.current || !preview_url) {
       alert("No preview for this track");
+      return;
     }
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      return;
+    }
+
+    audioRef.current.pause();
+    setIsPlaying(false);
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.preview}>
-        <img className={styles.albumImage} src={image} />
+        <img className={styles.albumImage} src={image} alt="album cover" />
         <div className={styles.icon}>
-          {!isPlaying ? (
-            <img onClick={handleImageClick} src={playIcon} />
+          {isPlaying ? (
+            <img onClick={handleClick} src={stopIcon} alt="stop button" />
           ) : (
-            <img onClick={handleImageClick} src={stopIcon} />
+            <img onClick={handleClick} src={playIcon} alt="play button" />
           )}
         </div>
         <div className={styles.info}>
@@ -68,5 +69,3 @@ const Track: React.FC<TrackProps> = ({
     </div>
   );
 };
-
-export default Track;

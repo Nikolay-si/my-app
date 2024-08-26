@@ -1,3 +1,5 @@
+@import "../../variables.css";
+
 .searchBar {
     display: flex;
     flex-direction: column;
@@ -9,16 +11,17 @@
     margin-bottom: 40px;
     height: 30px;
     text-align: center;
+    font-size: 18px;
 }
 .searchBar__button {
     width: 40%;
     height: 30px;
     font-weight: bold;
     align-self: center;
-    background-color: #690909CC;
+    background-color: var(--buttons-color);
     border-radius: 15px;
     border: none;
-    box-shadow: 0px 0px 30px #530707;
+    box-shadow: 0px 0px 30px var(--box-shadow-color);
     
 }
 

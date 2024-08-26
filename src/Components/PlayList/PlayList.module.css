@@ -1,10 +1,12 @@
+@import "../../variables.css";
+
 .wrapper {
     width: 80%;
-    background-color:  #690909CC;
+    background-color:  var(--main-background-color);
     display:flex;
     flex-direction: column;
     border-radius: 10px;
-    box-shadow: 0px 0px 30px #530707 ;
+    box-shadow: 0px 0px 30px var(--box-shadow-color) ;
     padding: 30px;
     margin: 0 auto;
     position: relative;
@@ -12,11 +14,11 @@
 .button{
     align-self: center;
     margin: 0 auto;
-    background-color: #470707cc;
+    background-color: var(--buttons-color);
     border-radius: 15px;
     height: 30px;
     width: 40%;
-    box-shadow: 0px 0px 30px #530707 ;
+    box-shadow: 0px 0px 30px var(--box-shadow-color) ;
     font-weight: bold;
     margin-top: 10px;
 }
@@ -25,9 +27,9 @@
     font-size: 18px;
     border: 0;
     font-weight: bold;
-    border-bottom: 2px solid #360505;
+    border-bottom: 2px solid var(--border-color);
     margin-bottom: 5px;
-    color: rgb(229, 255, 0)
+    color: var(--main-text-color)
 
 }
 
