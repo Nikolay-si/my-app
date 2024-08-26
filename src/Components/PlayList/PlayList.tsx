@@ -1,19 +1,22 @@
 import React from "react";
-import { inflateRaw } from "zlib";
 import styles from "./PlayList.module.css";
 
 interface PlayListProps {
   children: React.ReactElement;
   name: string;
+
   handleNameChange: (value: string) => void;
   handlePost: () => void;
+
 }
 
 const PlayList: React.FC<PlayListProps> = ({
   children,
   name,
+
   handleNameChange: onChange,
   handlePost: onClick,
+
 }) => {
   return (
     <div className={styles.wrapper}>

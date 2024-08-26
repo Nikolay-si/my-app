@@ -33,6 +33,7 @@ interface ApiSong {
   };
   preview_url: string;
 }
+
 export interface SongsMap {
   [id: string]: Song;
 }
@@ -45,6 +46,10 @@ function App() {
   const [query, setQuery] = useState("");
   const buttomSynbDel = "x";
   const buttomSynbAdd = "+";
+
+
+  const playListTracksId = userPlayList.map((track) => track.id);
+
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const token = spotifyAuth.getAccessToken();
@@ -54,6 +59,7 @@ function App() {
     }
   }, []);
 
+
   function handleAddTrack(id: string) {
     if (!userPlayListId.some((playId) => playId === id)) {
       setUserPlayListId([...userPlayListId, id]);
@@ -61,6 +67,7 @@ function App() {
         (playId) => id !== playId
       );
       setSearchResultId(nextSearchResultId);
+
     }
   }
 
@@ -68,12 +75,14 @@ function App() {
     setPlayListName(value);
   }
 
+
   function handleDelete(id: string) {
     const nextPlayListId = userPlayListId.filter((playId) => playId !== id);
     setUserPlayListId(nextPlayListId);
   }
   function getTrackUrisForPlaylist(): string[] {
     return userPlayListId.map((id) => songsMap[id].uri);
+
   }
   function handleTextChange(value: string) {
     setQuery(value);
@@ -100,6 +109,7 @@ function App() {
       const data: ApiResponse = await response.json();
       const tracks = data.tracks.items;
 
+
       const formattedTracks = tracks.reduce((acc: SongsMap, track: ApiSong) => {
         acc[track.id] = {
           id: track.id,
@@ -119,6 +129,7 @@ function App() {
         (id) => !userPlayListId.includes(id)
       );
       setSearchResultId(searchDisplayed);
+
       console.log(data.tracks.items);
     } catch (error) {
       console.error("Error fetching tracks:", error);
@@ -165,7 +176,10 @@ function App() {
       }
       const dataPlayList = await responsePlaylist.json();
       const playListId = dataPlayList.id;
+
       const trackUris = getTrackUrisForPlaylist();
+
+
       const responsePost = await fetch(
         `https://api.spotify.com/v1/users/${userId}/playlists/${playListId}/tracks`,
         {
@@ -194,10 +208,13 @@ function App() {
     <div>
       <header className={styles.header}>
         <h1>
+
           <span className={styles.header__logo}>Boom</span>
           <img
             className={styles.header__image}
             src="https://i.ibb.co/gS5cZwN/istockphoto-842671590-2048x2048.png"
+
+
           />
           box
         </h1>
@@ -205,20 +222,25 @@ function App() {
       <div className={styles.main}>
         <SearchBar
           value={query}
+
           handleTextChange={handleTextChange}
           handleSearch={handleSearch}
+
         />
         <div className={styles.lay}>
           <SearchResult>
             <TrackList
+
               songsMap={songsMap}
               searchResultId={searchResultId}
               handleDelete={handleAddTrack}
+
               buttonSymb={buttomSynbAdd}
             />
           </SearchResult>
           <PlayList
             name={playListName}
+
             handleNameChange={handleNameChange}
             handlePost={handlePost}
           >
@@ -227,6 +249,7 @@ function App() {
                 songsMap={songsMap}
                 searchResultId={userPlayListId}
                 handleDelete={handleDelete}
+
                 buttonSymb={buttomSynbDel}
               />
             ) : (

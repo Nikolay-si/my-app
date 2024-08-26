@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styles from "./TrackList.module.css";
 import Track from "../Track/Track";
 import { SongsMap } from "../../App";
 interface TrackListProps {
+
   searchResultId: string[];
   handleDelete: (id: string) => void;
   buttonSymb: string;
@@ -15,10 +16,12 @@ const TrackList: React.FC<TrackListProps> = ({
   handleDelete: handleClick,
   buttonSymb,
   songsMap,
+
 }) => {
   return (
     <div>
       <ul className={styles.trackList}>
+
         {searchResultId.map((id) => (
           <li key={id}>
             <Track
@@ -30,6 +33,7 @@ const TrackList: React.FC<TrackListProps> = ({
               album={songsMap[id].album}
               image={songsMap[id].image}
               preview_url={songsMap[id].preview_url}
+
             />
           </li>
         ))}
