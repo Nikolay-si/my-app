@@ -34,14 +34,22 @@ interface ApiSong {
   preview_url: string;
 }
 
+export interface SongsMap {
+  [id: string]: Song;
+}
+
 function App() {
-  const [songsList, setSongsList] = useState<Song[]>([]);
-  const [userPlayList, setUserPlayList] = useState<Song[]>([]);
+  const [songsMap, setSongsMap] = useState<SongsMap>({});
+  const [searchResultId, setSearchResultId] = useState<string[]>([]);
+  const [userPlayListId, setUserPlayListId] = useState<string[]>([]);
   const [playListName, setPlayListName] = useState("Your Playlist");
   const [query, setQuery] = useState("");
   const buttomSynbDel = "x";
   const buttomSynbAdd = "+";
+
+
   const playListTracksId = userPlayList.map((track) => track.id);
+
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const token = spotifyAuth.getAccessToken();
@@ -51,11 +59,15 @@ function App() {
     }
   }, []);
 
-  function handleClick(song: Song) {
-    if (!userPlayList.some((item) => item.id === song.id)) {
-      setUserPlayList([...userPlayList, song]);
-      const nextSongList = songsList.filter((item) => item.id !== song.id);
-      setSongsList(nextSongList);
+
+  function handleAddTrack(id: string) {
+    if (!userPlayListId.some((playId) => playId === id)) {
+      setUserPlayListId([...userPlayListId, id]);
+      const nextSearchResultId = searchResultId.filter(
+        (playId) => id !== playId
+      );
+      setSearchResultId(nextSearchResultId);
+
     }
   }
 
@@ -63,12 +75,14 @@ function App() {
     setPlayListName(value);
   }
 
-  function handleDelet(song: Song) {
-    const nextPlayList = userPlayList.filter((item) => item.id !== song.id);
-    setUserPlayList(nextPlayList);
+
+  function handleDelete(id: string) {
+    const nextPlayListId = userPlayListId.filter((playId) => playId !== id);
+    setUserPlayListId(nextPlayListId);
   }
-  function handleSubmit(): string[] {
-    return userPlayList.map((song) => song.uri);
+  function getTrackUrisForPlaylist(): string[] {
+    return userPlayListId.map((id) => songsMap[id].uri);
+
   }
   function handleTextChange(value: string) {
     setQuery(value);
@@ -94,19 +108,28 @@ function App() {
       }
       const data: ApiResponse = await response.json();
       const tracks = data.tracks.items;
-      const formattedTracks: Song[] = tracks.map((track: ApiSong) => ({
-        id: track.id,
-        name: track.name,
-        artists: track.artists.map((artist) => artist.name),
-        uri: track.uri,
-        album: track.album.name,
-        image: track.album.images[2].url,
-        preview_url: track.preview_url,
-      }));
-      const trackToDisplay = formattedTracks.filter(
-        (track) => !playListTracksId.includes(track.id)
+
+
+      const formattedTracks = tracks.reduce((acc: SongsMap, track: ApiSong) => {
+        acc[track.id] = {
+          id: track.id,
+          name: track.name,
+          artists: track.artists.map((artist) => artist.name),
+          uri: track.uri,
+          album: track.album.name,
+          image: track.album.images[2].url,
+          preview_url: track.preview_url,
+        };
+        return acc;
+      }, {});
+      console.log(formattedTracks);
+      setSongsMap(formattedTracks);
+      const searchResponse = tracks.map((track) => track.id);
+      const searchDisplayed = searchResponse.filter(
+        (id) => !userPlayListId.includes(id)
       );
-      setSongsList(trackToDisplay);
+      setSearchResultId(searchDisplayed);
+
       console.log(data.tracks.items);
     } catch (error) {
       console.error("Error fetching tracks:", error);
@@ -114,6 +137,7 @@ function App() {
   }
 
   async function handlePost() {
+    setIsLoading(true);
     const token = spotifyAuth.getAccessToken();
     if (!token) {
       console.error("No acess token availible");
@@ -125,7 +149,7 @@ function App() {
           Authorization: `Bearer ${token}`,
         },
       });
-      setIsLoading(true);
+
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
@@ -152,7 +176,10 @@ function App() {
       }
       const dataPlayList = await responsePlaylist.json();
       const playListId = dataPlayList.id;
-      const trackUris = handleSubmit();
+
+      const trackUris = getTrackUrisForPlaylist();
+
+
       const responsePost = await fetch(
         `https://api.spotify.com/v1/users/${userId}/playlists/${playListId}/tracks`,
         {
@@ -181,11 +208,13 @@ function App() {
     <div>
       <header className={styles.header}>
         <h1>
-          <span className={styles.boom}>Boom</span>
+
+          <span className={styles.header__logo}>Boom</span>
           <img
-            className={styles.headerImage}
+            className={styles.header__image}
             src="https://i.ibb.co/gS5cZwN/istockphoto-842671590-2048x2048.png"
-            alt="bomb"
+
+
           />
           box
         </h1>
@@ -193,26 +222,34 @@ function App() {
       <div className={styles.main}>
         <SearchBar
           value={query}
-          onChange={handleTextChange}
-          onSearch={handleSearch}
+
+          handleTextChange={handleTextChange}
+          handleSearch={handleSearch}
+
         />
         <div className={styles.lay}>
           <SearchResult>
             <TrackList
-              songsList={songsList}
-              handleClick={handleClick}
+
+              songsMap={songsMap}
+              searchResultId={searchResultId}
+              handleDelete={handleAddTrack}
+
               buttonSymb={buttomSynbAdd}
             />
           </SearchResult>
           <PlayList
             name={playListName}
-            onChange={handleNameChange}
-            onClick={handlePost}
+
+            handleNameChange={handleNameChange}
+            handlePost={handlePost}
           >
             {!isLoading ? (
               <TrackList
-                songsList={userPlayList}
-                handleClick={handleDelet}
+                songsMap={songsMap}
+                searchResultId={userPlayListId}
+                handleDelete={handleDelete}
+
                 buttonSymb={buttomSynbDel}
               />
             ) : (

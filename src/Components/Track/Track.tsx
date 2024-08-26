@@ -44,12 +44,14 @@ const Track: React.FC<TrackProps> = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.preview}>
-        <img className={styles.albumImage} src={image} alt="album cover" />
+
+        <img className={styles.albumImage} src={image} />
         <div className={styles.icon}>
           {!isPlaying ? (
-            <img onClick={handleImageClick} src={playIcon} alt="play" />
+            <img onClick={handleImageClick} src={playIcon} />
           ) : (
-            <img onClick={handleImageClick} src={stopIcon} alt="stop" />
+            <img onClick={handleImageClick} src={stopIcon} />
+
           )}
         </div>
         <div className={styles.info}>

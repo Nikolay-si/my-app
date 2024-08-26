@@ -10,11 +10,11 @@
   background-color:  #690909CC;
   text-align: center;
 }
-.headerImage {
+.header__image {
   width: 40px;
   height: auto;
 }
-.boom {
+.header__logo {
   color: rgb(252, 20, 20);
   text-shadow: 
   -2px -2px 0 #000000,  

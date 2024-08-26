@@ -2,32 +2,38 @@ import React from "react";
 
 import styles from "./TrackList.module.css";
 import Track from "../Track/Track";
-import { Song } from "../../App";
+import { SongsMap } from "../../App";
 interface TrackListProps {
-  songsList: Song[];
-  handleClick: (song: Song) => void;
+
+  searchResultId: string[];
+  handleDelete: (id: string) => void;
   buttonSymb: string;
+  songsMap: SongsMap;
 }
 
 const TrackList: React.FC<TrackListProps> = ({
-  songsList,
-  handleClick,
+  searchResultId,
+  handleDelete: handleClick,
   buttonSymb,
+  songsMap,
+
 }) => {
   return (
     <div>
       <ul className={styles.trackList}>
-        {songsList.map((song) => (
-          <li key={song.id}>
+
+        {searchResultId.map((id) => (
+          <li key={id}>
             <Track
-              id={song.id}
-              title={song.name}
-              artist={song.artists}
-              onClick={() => handleClick(song)}
+              id={id}
+              title={songsMap[id].name}
+              artist={songsMap[id].artists}
+              onClick={() => handleClick(id)}
               buttonSymb={buttonSymb}
-              album={song.album}
-              image={song.image}
-              preview_url={song.preview_url}
+              album={songsMap[id].album}
+              image={songsMap[id].image}
+              preview_url={songsMap[id].preview_url}
+
             />
           </li>
         ))}
