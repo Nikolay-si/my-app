@@ -45,12 +45,16 @@ export const Track = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.preview}>
+
         <img className={styles.albumImage} src={image} alt="album cover" />
+
         <div className={styles.icon}>
           {isPlaying ? (
             <img onClick={handleClick} src={stopIcon} alt="stop button" />
           ) : (
+
             <img onClick={handleClick} src={playIcon} alt="play button" />
+
           )}
         </div>
         <div className={styles.info}>

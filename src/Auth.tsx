@@ -1,8 +1,10 @@
 import { TokenData } from "./interface";
 
 const clientId = "05c3ea21976e455d9ff8c17b2e77c6c1";
-const redirectUri = "http://localhost:3000/callback";
+const redirectUri =
+  process.env.REACT_APP_REDIRECT_URI || "http://localhost:3000/callback";
 const scopes = "playlist-modify-public";
+
 
 export const spotifyAuth = {
   getAccessToken(): string | void {
