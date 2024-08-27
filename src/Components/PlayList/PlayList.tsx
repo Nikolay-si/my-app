@@ -1,23 +1,17 @@
 import React from "react";
+
 import styles from "./PlayList.module.css";
 
-interface PlayListProps {
+interface Props {
   children: React.ReactElement;
   name: string;
 
-  handleNameChange: (value: string) => void;
-  handlePost: () => void;
-
+  onChange: (value: string) => void;
+  onClick: () => void;
 }
 
-const PlayList: React.FC<PlayListProps> = ({
-  children,
-  name,
+export const PlayList = ({ children, name, onChange, onClick }: Props) => {
 
-  handleNameChange: onChange,
-  handlePost: onClick,
-
-}) => {
   return (
     <div className={styles.wrapper}>
       <input
@@ -33,5 +27,3 @@ const PlayList: React.FC<PlayListProps> = ({
     </div>
   );
 };
-
-export default PlayList;

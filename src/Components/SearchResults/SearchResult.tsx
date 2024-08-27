@@ -1,17 +1,15 @@
 import React from "react";
 import styles from "./searchResult.module.css";
 
-interface SearchResultProps {
+interface Props {
   children: React.ReactNode;
 }
 
-const SearchResult: React.FC<SearchResultProps> = ({ children }) => {
+export const SearchResult = ({ children }: Props) => {
   return (
     <div className={styles.wrapper}>
-      <h2>Results</h2>
+      <h2 className={styles.title}>Results</h2>
       {children}
     </div>
   );
 };
-
-export default SearchResult;

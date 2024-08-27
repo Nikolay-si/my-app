@@ -1,38 +1,33 @@
 import React from "react";
 
 import styles from "./TrackList.module.css";
-import Track from "../Track/Track";
-import { SongsMap } from "../../App";
-interface TrackListProps {
 
-  searchResultId: string[];
-  handleDelete: (id: string) => void;
+import { Track } from "../Track/Track";
+import { Song } from "../../interface";
+interface Props {
+  searchResult: Song[];
+  onClick: (id: string) => void;
+
   buttonSymb: string;
-  songsMap: SongsMap;
 }
 
-const TrackList: React.FC<TrackListProps> = ({
-  searchResultId,
-  handleDelete: handleClick,
-  buttonSymb,
-  songsMap,
-
-}) => {
+export const TrackList = ({ searchResult, onClick, buttonSymb }: Props) => {
   return (
     <div>
       <ul className={styles.trackList}>
+        {searchResult.map((result) => (
+          <li key={result.id}>
 
-        {searchResultId.map((id) => (
-          <li key={id}>
             <Track
-              id={id}
-              title={songsMap[id].name}
-              artist={songsMap[id].artists}
-              onClick={() => handleClick(id)}
+              id={result.id}
+              title={result.name}
+              artist={result.artists}
+              onClick={() => onClick(result.id)}
               buttonSymb={buttonSymb}
-              album={songsMap[id].album}
-              image={songsMap[id].image}
-              preview_url={songsMap[id].preview_url}
+
+              album={result.album}
+              image={result.image}
+              preview_url={result.preview_url}
 
             />
           </li>
@@ -41,5 +36,3 @@ const TrackList: React.FC<TrackListProps> = ({
     </div>
   );
 };
-
-export default TrackList;

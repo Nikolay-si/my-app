@@ -2,7 +2,7 @@
     width: 100px;
     height: 60px;
     
-    background-image: url(../../img/png-klev-club-nr9c-p-komiks-vzriv-png-28.png);
+    background-image: url(../../img/loader.png);
     background-size:cover;
     animation: rotate 3s infinite;
     overflow: hidden;
